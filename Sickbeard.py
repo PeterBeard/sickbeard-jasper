@@ -2,7 +2,7 @@ import re
 import json
 import requests
 
-WORDS = ['TV','EPISODE','SHOW','SOON','DOWNLOAD','SICK','BEARD']
+WORDS = ['TV','EPISODE','SHOW','SOON','TODAY','DOWNLOAD','SICK','BEARD']
 
 
 def handle(text, mic, profile):
@@ -31,8 +31,8 @@ def handle(text, mic, profile):
     )
 
     # Get episodes airing soon
-    if 'SOON' in text:
-        request_url = base_url + '?cmd=future&sort=date&type=soon'
+    if 'SOON' in text or 'TODAY' in text:
+        request_url = base_url + '?cmd=future&sort=date'
 
         # Get upcoming episodes from the API
         response = requests.get(request_url)
@@ -41,6 +41,12 @@ def handle(text, mic, profile):
         shows = []
         for show in json_response['data']['soon']:
             shows.append(show['show_name'])
+
+        for show in json_response['data']['today']:
+            shows.append(show['show_name'])
+
+        # Only keep uniques
+        shows = set(shows)
 
         if len(shows) == 1:
             message = 'There is an episode of %s airing soon.' % shows[0]
