@@ -31,7 +31,7 @@ def handle(text, mic, profile):
     )
 
     # Get episodes airing soon
-    if 'soon' in text:
+    if 'SOON' in text:
         request_url = base_url + '?cmd=future&sort=date&type=soon'
 
         # Get upcoming episodes from the API
