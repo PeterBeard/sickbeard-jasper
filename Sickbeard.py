@@ -60,6 +60,9 @@ def handle(text, mic, profile):
         for show in json_response['data']:
             shows.append(show['show_name'])
 
+        # Only keep unique show names
+        shows = set(shows)
+
         if len(shows) == 1:
             message = 'Sick Beard recently downloaded an episode of %s' % shows[0]
         elif len(shows) > 1:
