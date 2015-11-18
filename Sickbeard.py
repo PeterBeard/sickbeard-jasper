@@ -17,7 +17,7 @@ def handle(text, mic, profile):
 
     # Return False if Sick Beard isn't configured
     if 'sickbeard' in profile:
-        SB_HOSTNAME=profile['sickbeard']['hostname']
+        SB_HOSTNAME=profile['sickbeard']['host']
         SB_PORT=profile['sickbeard']['port']
         SB_API_KEY=profile['sickbeard']['api_key']
     else:
