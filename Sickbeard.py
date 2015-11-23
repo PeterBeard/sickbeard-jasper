@@ -1,8 +1,12 @@
+"""
+A Jasper module for interacting with Sick Beard.
+"""
+
 import re
 import json
 import requests
 
-WORDS = ['TV','EPISODE','SHOW','SOON','TODAY','DOWNLOAD','SICK','BEARD']
+WORDS = ['TV', 'EPISODE', 'SHOW', 'SOON', 'TODAY', 'DOWNLOAD', 'SICK', 'BEARD']
 
 
 def handle(text, mic, profile):
@@ -17,9 +21,9 @@ def handle(text, mic, profile):
 
     # Return False if Sick Beard isn't configured
     if 'sickbeard' in profile:
-        SB_HOSTNAME=profile['sickbeard']['host']
-        SB_PORT=profile['sickbeard']['port']
-        SB_API_KEY=profile['sickbeard']['api_key']
+        SB_HOSTNAME = profile['sickbeard']['host']
+        SB_PORT = profile['sickbeard']['port']
+        SB_API_KEY = profile['sickbeard']['api_key']
     else:
         mic.say('It looks like you haven\'t configured Sick Beard. See the README for details on how to do this.')
         return False
@@ -37,7 +41,7 @@ def handle(text, mic, profile):
         # Get upcoming episodes from the API
         response = requests.get(request_url)
         json_response = json.loads(response.text)
-        
+
         shows = []
         for show in json_response['data']['soon']:
             shows.append(show['show_name'])
@@ -61,7 +65,7 @@ def handle(text, mic, profile):
         # Get upcoming episodes from the API
         response = requests.get(request_url)
         json_response = json.loads(response.text)
-        
+
         shows = []
         for show in json_response['data']:
             shows.append(show['show_name'])
@@ -78,8 +82,7 @@ def handle(text, mic, profile):
 
     mic.say(message)
     return True
-        
-    
+
 
 def isValid(text):
     """
